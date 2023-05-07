@@ -20,7 +20,7 @@ func main() {
 	fmt.Println("\t\t\t\tWelcome to ATM")
 
 	for option != 0 {
-		fmt.Println("1. Login")
+		fmt.Println("\n1. Login")
 		fmt.Println("2. Register")
 		fmt.Println("0. Exit")
 		fmt.Print("Enter operation: ")
@@ -28,12 +28,15 @@ func main() {
 
 		switch option {
 		case 1:
-			fmt.Println("Login")
+			doLogin(scanner)
 		case 2:
-			fmt.Println("Register")
 			doRegister(scanner)
 		case 0:
 			fmt.Println("Goodbye :)")
+		case 3:
+			for _, user := range users {
+				fmt.Println(user)
+			}
 		default:
 			fmt.Println("Wrong option")
 		}
@@ -46,6 +49,7 @@ type user struct {
 	phoneNumber string
 	password    string
 	secretKey   string
+	state       bool
 }
 
 func getIntInput(scanner *bufio.Scanner) int {
@@ -98,8 +102,67 @@ func doRegister(scanner *bufio.Scanner) {
 		return
 	}
 
-	users = append(users, user{name, phoneNumber, password, secretKey})
-	for _, user1 := range users {
-		fmt.Println(user1)
+	users = append(users, user{name, phoneNumber, password, secretKey, true})
+	fmt.Println("Successfully registered")
+}
+
+func doLogin(scanner *bufio.Scanner) {
+	fmt.Println("\t\tLogin")
+
+	fmt.Print("Enter your phone number : ")
+	phoneNumber, err := getStringInput(scanner)
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
+	user1 := user{}
+	if len(users) == 0 {
+		fmt.Println("Go to register.")
+		return
+	}
+
+	for index, user := range users {
+		if phoneNumber == user.phoneNumber {
+			user1 = user
+			break
+		} else {
+			if index == len(users)-1 {
+				fmt.Println("Wrong phone number !")
+				return
+			}
+			continue
+		}
+	}
+	if user1.state {
+		count := 0
+		for i := 0; i < 3; i++ {
+			fmt.Print("Enter your password : ")
+			password, err := getStringInput(scanner)
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+
+			if password != user1.password {
+				fmt.Println("Wrong password, ", 2-count, " attempts left")
+				count++
+				if count == 3 {
+					fmt.Println("Your account has been blocked")
+					for index, user2 := range users {
+						if user2.phoneNumber == phoneNumber {
+							users[index].state = false
+							return
+						}
+					}
+				}
+			} else {
+				break
+			}
+		}
+	} else {
+		fmt.Println("Your account was blocked. You have to recover it.")
+		return
+	}
+
+	fmt.Println("hello")
 }

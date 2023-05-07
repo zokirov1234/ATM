@@ -1,30 +1,35 @@
                             TODO
 1. Register (+)
+// details : name, phone number, password, secret key for recover account
 
-2. Login
+2. Login (+)
+//details : if 3 times in a row with wrong password it will block
 
-             User menu
+3.             User menu
 
-3. User's information
+        1. About me
 
-4. Balance
+        2. Balance
 
-5. Transfer
+        3. Transfer
 
-6. Converter
+        4. Converter
 
-7. Withdraw
+        5. Withdraw
 
-8. Payments
+        6. Payments
 
-9. History
+        7. History
 
-10. Message to admin
+        8. Message to admin
 
-11. Change account
+        9. Change account
 
-12. Admin menu
+        10. Save password
 
-13. Save password
+        11. Change password
 
-14. Recover account
+
+4. Recover account
+
+5. Admin menu
