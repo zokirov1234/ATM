@@ -50,6 +50,14 @@ type user struct {
 	password    string
 	secretKey   string
 	state       bool
+	cards       card
+}
+
+type card struct {
+	cardNumber int
+	ownerName  string
+	balance    float32
+	isActive   bool
 }
 
 func getIntInput(scanner *bufio.Scanner) int {
@@ -102,7 +110,7 @@ func doRegister(scanner *bufio.Scanner) {
 		return
 	}
 
-	users = append(users, user{name, phoneNumber, password, secretKey, true})
+	users = append(users, user{name, phoneNumber, password, secretKey, true, card{}})
 	fmt.Println("Successfully registered")
 }
 
@@ -159,10 +167,60 @@ func doLogin(scanner *bufio.Scanner) {
 				break
 			}
 		}
+
+		userMenu(scanner, user1)
+
 	} else {
 		fmt.Println("Your account was blocked. You have to recover it.")
 		return
 	}
+}
 
-	fmt.Println("hello")
+func userMenu(scanner *bufio.Scanner, user3 user) {
+
+	option := -1
+
+	for option != 0 {
+		fmt.Println("\n***** Menu *****")
+		fmt.Println("1. About me")
+		fmt.Println("2. Balance")
+		fmt.Println("3. Transfer")
+		fmt.Println("4. Converter")
+		fmt.Println("5. Withdraw")
+		fmt.Println("5. Payments")
+		fmt.Println("6. History")
+		fmt.Println("7. Message to admin")
+		fmt.Println("8. Save password")
+		fmt.Println("9. Change password")
+		fmt.Println("0. Exit")
+		fmt.Print("Enter operation : ")
+		option = getIntInput(scanner)
+
+		switch option {
+		case 1:
+			getData(user3)
+		case 2:
+
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+		case 0:
+
+		}
+	}
+
+}
+
+func getData(user2 user) {
+
+	fmt.Println("\n-----Me-----")
+
+	fmt.Println("Your name : ", user2.username)
+	fmt.Println("Your phone number : ", user2.phoneNumber)
+	fmt.Println("Your password : ", user2.password)
+	fmt.Println("Your secret key : ", user2.secretKey)
 }

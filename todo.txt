@@ -7,7 +7,7 @@
 
 3.             User menu
 
-        1. About me
+        1. About me (+)
 
         2. Balance
 
@@ -23,6 +23,7 @@
 
         8. Message to admin
 
+        //redundant
         9. Change account
 
         10. Save password
